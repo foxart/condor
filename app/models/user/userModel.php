@@ -17,20 +17,20 @@ class UserModel
         $this->db = Database::getConnection();
     }
 
-    public function getUserList(): UserListIterator
+    public function findAllUser(): UserListIterator
     {
         $sql = file_get_contents(__DIR__ . '/sql/find-all-user.sql');
         $result = $this->db->query($sql);
         $users = array_map(function ($user) {
-            return new UserModelNew($user);
+            return new UserDto($user);
         }, $result);
         return new UserListIterator($users);
     }
 
-    public function getUserById($userId): UserModelNew
+    public function findOneUser($userId): UserDto
     {
         $sql = file_get_contents(__DIR__ . '/sql/find-one-user.sql');
         $userList = $this->db->query($sql, [':userId' => $userId]);
-        return new UserModelNew($userList[0]);
+        return new UserDto($userList[0]);
     }
 }

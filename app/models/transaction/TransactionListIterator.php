@@ -1,11 +1,12 @@
 <?php
 
-namespace models\user;
+namespace models\transaction;
 
 use Countable;
 use Iterator;
+use models\user\UserDto;
 
-class UserListIterator implements Iterator, Countable
+class TransactionListIterator implements Iterator, Countable
 {
     private array $collection;
 
@@ -14,7 +15,7 @@ class UserListIterator implements Iterator, Countable
         $this->collection = $array;
     }
 
-    public function current(): UserDto
+    public function current(): TransactionDto
     {
         return current($this->collection);
     }

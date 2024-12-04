@@ -38,7 +38,7 @@ class TransactionApi
         return $this->fetchMocked();
     }
 
-    public function fetchMocked()
+    private function fetchMocked()
     {
         $jsonContents = file_get_contents('models/transaction/transactionApi.json');
         return json_decode($jsonContents, true);

@@ -1,7 +1,7 @@
 <?php
 
 namespace models\user;
-class UserModelNew
+class UserDto
 {
     public int $id;
     public string $email;
@@ -40,7 +40,7 @@ class UserModelNew
         $this->status_name = $data['status_name'];
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -50,7 +50,7 @@ class UserModelNew
         $this->id = $id;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -60,7 +60,7 @@ class UserModelNew
         $this->email = $email;
     }
 
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -70,7 +70,7 @@ class UserModelNew
         $this->username = $username;
     }
 
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -80,7 +80,7 @@ class UserModelNew
         $this->password = $password;
     }
 
-    public function getFirstname(): ?string
+    public function getFirstname(): string
     {
         return $this->firstname;
     }
@@ -90,7 +90,7 @@ class UserModelNew
         $this->firstname = $firstname;
     }
 
-    public function getLastname(): ?string
+    public function getLastname(): string
     {
         return $this->lastname;
     }
@@ -100,7 +100,7 @@ class UserModelNew
         $this->lastname = $lastname;
     }
 
-    public function getDob(): ?string
+    public function getDob(): string
     {
         return $this->dob;
     } // Consider returning \DateTime
@@ -110,7 +110,7 @@ class UserModelNew
         $this->dob = $dob;
     }
 
-    public function getCity(): ?string
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -120,7 +120,7 @@ class UserModelNew
         $this->city = $city;
     }
 
-    public function getZipcode(): ?string
+    public function getZipcode(): string
     {
         return $this->zipcode;
     }
@@ -130,7 +130,7 @@ class UserModelNew
         $this->zipcode = $zipcode;
     }
 
-    public function getAddress(): ?string
+    public function getAddress(): string
     {
         return $this->address;
     }
@@ -140,7 +140,7 @@ class UserModelNew
         $this->address = $address;
     }
 
-    public function getCreatedAt(): ?string
+    public function getCreatedAt(): string
     {
         return $this->createdAt;
     }
@@ -150,7 +150,7 @@ class UserModelNew
         $this->createdAt = $createdAt;
     }
 
-    public function getCountryId(): ?int
+    public function getCountryId(): int
     {
         return $this->country_id;
     }
@@ -180,7 +180,7 @@ class UserModelNew
         $this->country_code = $country_code;
     }
 
-    public function getStatusId(): ?int
+    public function getStatusId(): int
     {
         return $this->status_id;
     }

@@ -1,26 +1,7 @@
 <?php
 
 namespace models\transaction;
-interface TransactionDtoInterface
-{
-    public function getId(): int;
-
-    public function getType(): string;
-
-    public function getUserId(): int;
-
-    public function getDate(): string;
-
-    public function getAmount(): float;
-
-    public function getCurrency(): string;
-
-    public function isProcessed(): bool;
-
-    public function getDetails(): string|null;
-}
-
-class TransactionDto implements TransactionDtoInterface
+class TransactionDto
 {
     private int $id;
     private string $type;
@@ -31,16 +12,16 @@ class TransactionDto implements TransactionDtoInterface
     private bool $processed;
     private string|null $details;
 
-    public function __construct(int $id, string $type, int $user_id, string $date, float $amount, string $currency, bool $processed, string|null $details)
+    public function __construct(array $data = [])
     {
-        $this->id = $id;
-        $this->type = $type;
-        $this->userId = $user_id;
-        $this->date = $date;
-        $this->amount = $amount;
-        $this->currency = $currency;
-        $this->processed = $processed;
-        $this->details = $details;
+        $this->id = $data['id'];
+        $this->type = $data['type'];
+        $this->userId = $data['user_id'];
+        $this->date = $data['date'];
+        $this->amount = $data['amount'];
+        $this->currency = $data['currency'];
+        $this->processed = $data['processed'];
+        $this->details = $data['details'];
     }
 
     public function getId(): int

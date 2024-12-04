@@ -10,9 +10,6 @@ spl_autoload_register(function ($class) {
         require_once $file;
     }
 });
-//require_once 'common/router.php';
-//require_once 'controllers/user.php';
-//require_once 'controllers/transaction.php';
 function debug($data): void
 {
     echo '<pre>';
@@ -23,10 +20,10 @@ function debug($data): void
 /**
  *
  */
-$router = new Router('/api');
+$router = new Router();
 $router->get('/', function () {
     $user = new UserController();
-    echo $user->getUserList();
+    echo $user->findAllUser();
 });
 $router->get('/transaction', function () {
     echo json_encode([
@@ -36,9 +33,9 @@ $router->get('/transaction', function () {
 });
 $router->get('/transaction/{id}', function ($id) {
     $main = new UserController();
-    echo $main->getUserList();
+    echo $main->findAllUser();
     $transactionManager = new TransactionController();
-    $transactionManager->getTransactions($id);
+    echo $transactionManager->findAllTransaction($id);
 });
 $router->post('/transaction', function () {
     $inputData = json_decode(file_get_contents('php://input'), true);

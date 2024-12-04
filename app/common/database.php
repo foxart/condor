@@ -27,11 +27,6 @@ class Database
         return self::$instance;
     }
 
-    public function pdo(): PDO
-    {
-        return $this->pdo();
-    }
-
     public function query($sql, $params = []): array
     {
         $stmt = $this->pdo->prepare($sql);

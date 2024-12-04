@@ -1,34 +1,27 @@
 <?php
-require_once 'system/database.php';
-require_once 'system/pinkManApi.php';
-require_once 'dto/transactionDto.php';
-require_once 'models/userModel.php';
-/**
- *
- */
-class UserTransactionList
+
+namespace controllers;
+
+use models\transaction\TransactionApi;
+use models\transaction\TransactionDto;
+use models\user\UserModel;
+
+class TransactionController
 {
-    private Database $database;
     private string $tableStyle = 'border-collapse: collapse; width: 100%;';
     private string $cellStyle = 'border: solid 1px black; border-collapse: collapse;';
-
-    public function __construct()
-    {
-        $this->database = Database::getConnection();
-    }
 
     public function getTransactions(int $userId): void
     {
         $userModel = new UserModel();
         $user = $userModel->getUserById($userId);
-        $apiClient = new PinkManApi();
+        $apiClient = new TransactionApi();
         $transactionList = $apiClient->fetchTransactions();
-        $transactions = array_map( function($transaction) use ($user) {
+        $transactions = array_map(function ($transaction) use ($user) {
             return new TransactionDto(...$transaction);
-        }, array_filter($transactionList, function($transaction) use ($user) {
+        }, array_filter($transactionList, function ($transaction) use ($user) {
             return $transaction['user_id'] === $user->getId();
         }));
-
         echo "<table style='$this->tableStyle'>";
         echo '<tr>';
         echo '<th>ID</th><th>Type</th><th>User ID</th><th>Date</th><th>Amount</th><th>Currency</th><th>Processed</th><th>Details</th>';

@@ -1,5 +1,9 @@
 <?php
 
+namespace common;
+
+use PDO;
+
 class Database
 {
     private static Database|null $instance = null;
@@ -21,6 +25,11 @@ class Database
             self::$instance = new Database();
         }
         return self::$instance;
+    }
+
+    public function pdo(): PDO
+    {
+        return $this->pdo();
     }
 
     public function query($sql, $params = []): array

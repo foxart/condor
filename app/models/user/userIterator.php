@@ -1,5 +1,10 @@
 <?php
 
+namespace models\user;
+
+use Countable;
+use Iterator;
+
 class UserListIterator implements Iterator, Countable
 {
     private array $collection;
@@ -9,7 +14,7 @@ class UserListIterator implements Iterator, Countable
         $this->collection = $array;
     }
 
-    public function current(): UserDto
+    public function current(): UserModelNew
     {
         return current($this->collection);
     }

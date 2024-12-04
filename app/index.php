@@ -1,17 +1,32 @@
 <?php
-require_once 'system/router.php';
-require_once 'user.php';
-require_once 'transaction.php';
-/**
- *
- */
+
+use common\Router;
+use controllers\TransactionController;
+use controllers\UserController;
+
+spl_autoload_register(function ($class) {
+    $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
+//require_once 'common/router.php';
+//require_once 'controllers/user.php';
+//require_once 'controllers/transaction.php';
+function debug($data): void
+{
+    echo '<pre>';
+    print_r($data);
+    echo '</pre>';
+}
+
 /**
  *
  */
 $router = new Router('/api');
 $router->get('/', function () {
-    $user = new User();
-    $user->getUserList();
+    $user = new UserController();
+    echo $user->getUserList();
 });
 $router->get('/transaction', function () {
     echo json_encode([
@@ -20,9 +35,9 @@ $router->get('/transaction', function () {
     ]);
 });
 $router->get('/transaction/{id}', function ($id) {
-    $main = new User();
-    $main->getUserList();
-    $transactionManager = new UserTransactionList();
+    $main = new UserController();
+    echo $main->getUserList();
+    $transactionManager = new TransactionController();
     $transactionManager->getTransactions($id);
 });
 $router->post('/transaction', function () {

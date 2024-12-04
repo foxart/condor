@@ -1,6 +1,7 @@
 <?php
 
-class PinkManApi
+namespace models\transaction;
+class TransactionApi
 {
     private string $apiUrl = 'https://pinkman.online/api/';
     private string $apiKey = 'any';
@@ -23,13 +24,13 @@ class PinkManApi
 //        $error = curl_error($curl);
 //        curl_close($curl);
 //        if ($error) {
-//            echo "Curl error";
+//        echo '[curl error using cache]';
 //            var_dump($error);
 //            return $this->fetchMocked();
 //        }
 //        $data = json_decode($response, true);
 //        if ($data['status'] !== 'success' || $data['statusCode'] !== 200) {
-//            echo "Api error";
+//        echo '[api error]';
 //            var_dump($data);
 //            return $this->fetchMocked();
 //        }
@@ -39,7 +40,7 @@ class PinkManApi
 
     public function fetchMocked()
     {
-        $jsonContents = file_get_contents('system/pinkManApi.json');
+        $jsonContents = file_get_contents('models/transaction/transactionApi.json');
         return json_decode($jsonContents, true);
     }
 }

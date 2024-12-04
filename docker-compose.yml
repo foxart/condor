@@ -12,7 +12,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data-volume:/var/lib/mysql
+      - mysql-volume:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
 
@@ -28,8 +28,8 @@ services:
     logging:
       driver: none
 
-  b2b-api:
-    container_name: b2b-api
+  php:
+    container_name: php
     build:
       args:
         - PROJECT_DIR=.
@@ -37,15 +37,11 @@ services:
       - mysql
     volumes:
       - ./app:/var/www/app:delegated
-      - agend-admin-vendor:/var/www/vendor
+      - php-volume:/var/www/vendor
 #    environment:
 #      PHP_IDE_CONFIG: ${DOCKER_PHP_IDE_CONFIG}
 #      XDEBUG_SESSION: ${DOCKER_XDEBUG_SESSION}
 #      XDEBUG_CLIENT_HOST: ${DOCKER_XDEBUG_CLIENT_HOST}
-    external_links:
-      - "apache:beinharim.local"
-      - "apache:beinharim.loc"
-      - "apache:gyg.beinharim.loc"
     logging:
       driver: "json-file"
       options:
@@ -54,6 +50,6 @@ services:
 
 
 volumes:
-  mysql-data-volume:
-  agend-admin-vendor:
+  mysql-volume:
+  php-volume:
 

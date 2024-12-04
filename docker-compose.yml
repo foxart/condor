@@ -17,13 +17,12 @@ services:
       MYSQL_ROOT_PASSWORD: root
 
   apache:
-    build: ./_docker/apache
+    build: ./apache
     ports:
       - "80:80"
       - "443:443"
     links:
       - mysql
-      - beinharim
     volumes:
       - *services-volume
     logging:
@@ -32,18 +31,13 @@ services:
   b2b-api:
     container_name: b2b-api
     build:
-      context: ./
-      dockerfile: ./_docker/b2b-api/Dockerfile
       args:
-        - PROJECT_DIR=${B2B_API_DIR}
+        - PROJECT_DIR=.
     links:
       - mysql
-      - mongo
     volumes:
-      - ./${B2B_API_DIR}/app:/var/www/app:delegated
+      - ./app:/var/www/app:delegated
       - agend-admin-vendor:/var/www/vendor
-    env_file:
-      .env
 #    environment:
 #      PHP_IDE_CONFIG: ${DOCKER_PHP_IDE_CONFIG}
 #      XDEBUG_SESSION: ${DOCKER_XDEBUG_SESSION}

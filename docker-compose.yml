@@ -1,0 +1,65 @@
+version: "3.9"
+
+x-project-volume:
+  &services-volume
+  type: bind
+  source: ./
+  target: /var/www
+
+services:
+  mysql:
+    image: mariadb:10.1.38
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data-volume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  apache:
+    build: ./_docker/apache
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - mysql
+      - beinharim
+    volumes:
+      - *services-volume
+    logging:
+      driver: none
+
+  b2b-api:
+    container_name: b2b-api
+    build:
+      context: ./
+      dockerfile: ./_docker/b2b-api/Dockerfile
+      args:
+        - PROJECT_DIR=${B2B_API_DIR}
+    links:
+      - mysql
+      - mongo
+    volumes:
+      - ./${B2B_API_DIR}/app:/var/www/app:delegated
+      - agend-admin-vendor:/var/www/vendor
+    env_file:
+      .env
+#    environment:
+#      PHP_IDE_CONFIG: ${DOCKER_PHP_IDE_CONFIG}
+#      XDEBUG_SESSION: ${DOCKER_XDEBUG_SESSION}
+#      XDEBUG_CLIENT_HOST: ${DOCKER_XDEBUG_CLIENT_HOST}
+    external_links:
+      - "apache:beinharim.local"
+      - "apache:beinharim.loc"
+      - "apache:gyg.beinharim.loc"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20k" # max size of each log file
+        max-file: "1" # maximum number of log files
+
+
+volumes:
+  mysql-data-volume:
+  agend-admin-vendor:
+

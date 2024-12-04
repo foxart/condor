@@ -1,14 +1,12 @@
 <?php
 
-class ApiClient
+class PinkManApi
 {
-    private string $apiKey;
-    private string $apiUrl;
+    private string $apiUrl = 'https://pinkman.online/api/';
+    private string $apiKey = 'any';
 
-    public function __construct(string $apiUrl, string $apiKey)
+    public function __construct()
     {
-        $this->apiUrl = $apiUrl;
-        $this->apiKey = $apiKey;
     }
 
     public function fetchTransactions()
@@ -41,7 +39,7 @@ class ApiClient
 
     public function fetchMocked()
     {
-        $jsonContents = file_get_contents('api.json');
+        $jsonContents = file_get_contents('system/pinkManApi.json');
         return json_decode($jsonContents, true);
     }
 }

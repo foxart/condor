@@ -25,8 +25,17 @@ services:
       - mysql
     volumes:
       - *services-volume
-    logging:
-      driver: none
+#    logging:
+#      driver: none
+#    entrypoint:
+#      - /bin/sh
+#      - -c
+#      - sleep 86400
+
+#test-apache-1  | AH00526: Syntax error on line 144 of /usr/local/apache2/conf/extra/httpd-ssl.conf:
+#test-apache-1  | SSLCertificateFile: file '/usr/local/apache2/conf/server.crt' does not exist or is empty
+#  test-apache-1 exited with code 1
+
 
   php:
     container_name: php
@@ -48,8 +57,6 @@ services:
         max-size: "20k" # max size of each log file
         max-file: "1" # maximum number of log files
 
-
 volumes:
   mysql-volume:
   php-volume:
-

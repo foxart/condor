@@ -3,15 +3,15 @@
 Management needs an application where they can aggregate statistics from the given data sources.
 You are one of the developers in tech team and your part is to create the following:
 
-#1 Get data by request
+# 1 Get data by request
 - show all transactions for the selected user along with information about the user (status and country)
 - group results by transaction type (i.e. transactions for each type are showed in separate tab, table, etc.)
 
-#2 Create a new data sources for other developers in your team for further processing
+# 2 Create a new data sources for other developers in your team for further processing
 - sum and count of transactions per country for all time
 - sum and count of transactions per user, month by month
 
-Output formats for new data sources (please choose two of the following):
+## Output formats for new data sources (please choose two of the following):
 - new DB table
 - new API endpoint
 - new CSV file 

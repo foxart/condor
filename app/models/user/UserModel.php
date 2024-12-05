@@ -2,11 +2,7 @@
 
 namespace models\user;
 
-
 use common\Database;
-
-require_once __DIR__ . '/UserIterator.php';
-require_once __DIR__ . '/UserDto.php';
 
 class UserModel
 {

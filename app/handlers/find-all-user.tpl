@@ -11,13 +11,17 @@
 	<tbody>
         <?php foreach ($users as $user): ?>
 			<tr>
-				<td><?= $user->getId(); ?></td>
-				<td><a href="/transaction/<?= $user->getId(); ?>">
-                        <?= $user->getUsername(); ?></a>
+				<td><?= htmlSpecialChars($user->getId()); ?></td>
+				<td>
+					<?php
+						$link = '/transaction/' . htmlSpecialChars($user->getId());
+						$title = htmlSpecialChars($user->getUsername());
+						echo "<a href='{$link}'>$title</a>";
+					?>
 				</td>
-				<td><?= $user->getCity(); ?></td>
-				<td><?= $user->getStatusName(); ?></td>
-				<td><?= $user->getCountryName(); ?></td>
+				<td><?= htmlSpecialChars($user->getCity()); ?></td>
+				<td><?= htmlSpecialChars($user->getStatusName()); ?></td>
+				<td><?= htmlSpecialChars($user->getCountryName()); ?></td>
 			</tr>
         <?php endforeach; ?>
 	</tbody>

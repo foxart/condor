@@ -14,14 +14,14 @@
     <tbody>
         <?php foreach ($transactions as $transaction): ?>
         <tr>
-            <td><?= $transaction->getId(); ?></td>
-            <td><?= $transaction->getType(); ?></td>
-            <td><?= $transaction->getUserId(); ?></td>
-            <td><?= $transaction->getDate(); ?></td>
-            <td><?= $transaction->getAmount(); ?></td>
-            <td><?= $transaction->getCurrency(); ?></td>
-            <td><?= $transaction->isProcessed() ? 'Yes' : 'No'; ?></td>
-            <td><?= $transaction->getDetails(); ?></td>
+            <td><?= htmlSpecialChars($transaction->getId()); ?></td>
+            <td><?= htmlSpecialChars($transaction->getType()); ?></td>
+            <td><?= htmlSpecialChars($transaction->getUserId()); ?></td>
+            <td><?= htmlSpecialChars($transaction->getDate()); ?></td>
+            <td><?= htmlSpecialChars($transaction->getAmount()); ?></td>
+            <td><?= htmlSpecialChars($transaction->getCurrency()); ?></td>
+            <td><?= htmlSpecialChars($transaction->isProcessed()) ? 'Yes' : 'No'; ?></td>
+            <td><?= htmlSpecialChars($transaction->getDetails() ?? ''); ?></td>
         </tr>
         <?php endforeach; ?>
     </tbody>

@@ -44,19 +44,19 @@
             <ul>
                 <?php
 					foreach ($menuConfig as $item) {
-						$title = $item->getTitle();
-                        $link = $item->getRoute();
-                        echo "<li><a href='$link'>$title</a></li>";
+						$title = htmlSpecialChars($item->getTitle());
+                        $link = htmlSpecialChars($item->getRoute());
+                        echo "<li><a href='{$link}'>$title</a></li>";
                     }
                 ?>
             </ul>
         </nav>
         <div id="content">
             <h1>
-                <?php echo $headerTitle ?>
+                <?= htmlSpecialChars($headerTitle) ?>
             </h1>
             <div>
-                <?php echo $routerContent ?>
+                <?= $routerContent ?>
             </div>
         </div>
     </body>

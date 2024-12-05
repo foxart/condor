@@ -4,43 +4,50 @@ namespace models\transaction;
 class TransactionApi
 {
     private string $apiUrl = 'https://pinkman.online/api/';
-    private string $apiKey = 'any';
+    private string $apiKey = 'foxart.org';
+    private string $cache;
 
     public function __construct()
     {
+        $this->cache = 'models/transaction/transactionApi.json';
     }
 
     public function getTransactionList()
     {
-//        $url = $this->apiUrl . "?api-key=" . $this->apiKey;
-//        $curl = curl_init();
-//        curl_setopt_array($curl, [
-//            CURLOPT_URL => $url,
-//            CURLOPT_RETURNTRANSFER => true,
-//            CURLOPT_TIMEOUT => 30,
-//            CURLOPT_HTTPGET => true
-//        ]);
-//        $response = curl_exec($curl);
-//        $error = curl_error($curl);
-//        curl_close($curl);
-//        if ($error) {
-//        echo '[curl error using cache]';
-//            var_dump($error);
-//            return $this->fetchMocked();
-//        }
-//        $data = json_decode($response, true);
-//        if ($data['status'] !== 'success' || $data['statusCode'] !== 200) {
-//        echo '[api error]';
-//            var_dump($data);
-//            return $this->fetchMocked();
-//        }
-//        return $data['data'];
-        return $this->cachedTransactionList();
+        return $this->getCache();
+        $url = "$this->apiUrl?api-key={$this->apiKey}";
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 1,
+            CURLOPT_HTTPGET => true
+        ]);
+        $response = curl_exec($curl);
+        $error = curl_error($curl);
+        curl_close($curl);
+        if ($error) {
+            debug(['data' => 'from cache', 'error' => $error]);
+            return $this->getCache();
+        }
+        $data = json_decode($response, true);
+        if ($data['status'] !== 'success' || $data['statusCode'] !== 200) {
+            debug(['data' => 'from cache', 'error' => $data,]);
+            return $this->getCache();
+        }
+        $this->storeCache($data['data']);
+        debug(['data' => 'from api',]);
+        return $data['data'];
     }
 
-    private function cachedTransactionList()
+    private function getCache(): mixed
     {
-        $jsonContents = file_get_contents('models/transaction/transactionApi.json');
+        $jsonContents = file_get_contents($this->cache);
         return json_decode($jsonContents, true);
+    }
+
+    private function storeCache(mixed $data): void
+    {
+        file_put_contents($this->cache, json_encode($data, JSON_PRETTY_PRINT));
     }
 }

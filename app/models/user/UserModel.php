@@ -5,8 +5,8 @@ namespace models\user;
 
 use common\Database;
 
-require_once __DIR__ . '/userIterator.php';
-require_once __DIR__ . '/userDto.php';
+require_once __DIR__ . '/UserIterator.php';
+require_once __DIR__ . '/UserDto.php';
 
 class UserModel
 {

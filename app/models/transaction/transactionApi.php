@@ -10,7 +10,7 @@ class TransactionApi
     {
     }
 
-    public function fetchTransactions()
+    public function getTransactionList()
     {
 //        $url = $this->apiUrl . "?api-key=" . $this->apiKey;
 //        $curl = curl_init();
@@ -35,10 +35,10 @@ class TransactionApi
 //            return $this->fetchMocked();
 //        }
 //        return $data['data'];
-        return $this->fetchMocked();
+        return $this->cachedTransactionList();
     }
 
-    private function fetchMocked()
+    private function cachedTransactionList()
     {
         $jsonContents = file_get_contents('models/transaction/transactionApi.json');
         return json_decode($jsonContents, true);

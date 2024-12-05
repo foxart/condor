@@ -1,15 +1,3 @@
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    td {
-        border: solid 1px black;
-        border-collapse: collapse;
-    }
-</style>
-
 <table>
     <thead>
         <tr>

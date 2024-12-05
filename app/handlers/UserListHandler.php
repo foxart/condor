@@ -1,10 +1,11 @@
 <?php
 
-namespace controllers;
+namespace handlers;
 
+use common\Command;
 use models\user\UserModel;
 
-class UserController
+class UserListHandler implements Command
 {
     private UserModel $model;
 
@@ -13,7 +14,7 @@ class UserController
         $this->model = new UserModel();
     }
 
-    public function findAllUser(): string
+    public function execute(array $data = []): string
     {
         $users = $this->model->findAllUser();
         ob_start();

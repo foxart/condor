@@ -1,10 +1,11 @@
 <?php
 
-namespace controllers;
+namespace handlers;
 
+use common\Command;
 use models\transaction\transactionModel;
 
-class TransactionController
+class FindAllTransactionByUserIdHandler implements Command
 {
     private transactionModel $model;
 
@@ -13,8 +14,9 @@ class TransactionController
         $this->model = new TransactionModel();
     }
 
-    public function findAllTransaction(int $userId): string
+    public function execute(array $data = []): string
     {
+        $userId = (int) ($data['userId'] ?? 0);
         $transactions = $this->model->findAllTransactionByUserId($userId);
         ob_start();
         include 'find-all-transaction.tpl';

@@ -1,8 +1,6 @@
 <?php
 
-use common\Router;
-use controllers\TransactionController;
-use controllers\UserController;
+use common\RouterHandler;
 
 spl_autoload_register(function ($class) {
     $file = __DIR__ . '/' . str_replace('\\', '/', $class) . '.php';
@@ -17,35 +15,8 @@ function debug($data): void
     echo '</pre>';
 }
 
-/**
- *
- */
-$router = new Router();
-$router->get('/', function () {
-    $user = new UserController();
-    echo $user->findAllUser();
-});
-$router->get('/transaction', function () {
-    echo json_encode([
-        'status' => 'success',
-        'data' => 'Список транзакций'
-    ]);
-});
-$router->get('/transaction/{id}', function ($id) {
-    $main = new UserController();
-    echo $main->findAllUser();
-    $transactionManager = new TransactionController();
-    echo $transactionManager->findAllTransaction($id);
-});
-$router->post('/transaction', function () {
-    $inputData = json_decode(file_get_contents('php://input'), true);
-    echo json_encode([
-        'status' => 'success',
-        'data' => 'Новая транзакция создана',
-        'input' => $inputData
-    ]);
-});
-$router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+$routerHandler = new RouterHandler(__DIR__ . '/index.tpl');
+$routerHandler->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
 /**
  *
  */

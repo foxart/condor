@@ -35,14 +35,11 @@ class Router
         $requestUri = parse_url($requestUri, PHP_URL_PATH);
         foreach ($this->routes as $route) {
             if ($route['method'] === $requestMethod && preg_match($route['path'], $requestUri, $matches)) {
-                // Убираем индекс 0, так как он содержит полный путь
                 $params = array_filter($matches, fn($key) => !is_numeric($key), ARRAY_FILTER_USE_KEY);
-                // Вызываем обработчик с параметрами
                 call_user_func_array($route['handler'], $params);
                 return;
             }
         }
-        // Если маршрут не найден, возвращаем 404
         http_response_code(404);
         echo "404 Not Found";
     }

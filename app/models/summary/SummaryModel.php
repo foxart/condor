@@ -8,11 +8,7 @@ use models\user\UserListIterator;
 
 class SummaryModel
 {
-    public function __construct()
-    {
-    }
-
-    function getByCountry(TransactionListIterator $transactions, UserListIterator $userList): SummaryListIterator
+    public function getByCountry(TransactionListIterator $transactions, UserListIterator $userList): SummaryListIterator
     {
         $result = [];
         foreach ($transactions as $transaction) {

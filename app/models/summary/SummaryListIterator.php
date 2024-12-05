@@ -4,7 +4,6 @@ namespace models\summary;
 
 use Countable;
 use Iterator;
-use models\user\UserDto;
 
 class SummaryListIterator implements Iterator, Countable
 {
@@ -45,5 +44,4 @@ class SummaryListIterator implements Iterator, Countable
     {
         return count($this->collection);
     }
-
 }

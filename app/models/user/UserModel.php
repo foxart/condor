@@ -13,7 +13,7 @@ class UserModel
         $this->db = Database::getConnection();
     }
 
-    public function findAllUser(): UserListIterator
+    public function findAll(): UserListIterator
     {
         $sql = file_get_contents(__DIR__ . '/sql/find-all-user.sql');
         $result = $this->db->query($sql);
@@ -23,7 +23,7 @@ class UserModel
         return new UserListIterator($users);
     }
 
-    public function findOneUser($userId): UserDto
+    public function findOne($userId): UserDto
     {
         $sql = file_get_contents(__DIR__ . '/sql/find-one-user.sql');
         $userList = $this->db->query($sql, [':userId' => $userId]);

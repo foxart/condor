@@ -5,7 +5,7 @@ namespace handlers;
 use common\Command;
 use models\user\UserModel;
 
-class FindOneUserByIdHandler implements Command
+class FindOneUserHandler implements Command
 {
     private UserModel $userModel;
     private FindAllTransactionHandler $handler;
@@ -20,13 +20,13 @@ class FindOneUserByIdHandler implements Command
     {
         $userId = (int)($data['userId'] ?? 0);
         $type = (string)($data['type'] ?? '');
-        $user = $this->userModel->findOneUser($userId);
+        $user = $this->userModel->findOne($userId);
         $transactions = $this->handler->execute($url, [
             'userId' => $userId,
             'type' => $type,
         ]);
         ob_start();
-        include 'find-one-user.tpl';
+        include 'FindOneUser.tpl';
         return ob_get_clean();
     }
 }

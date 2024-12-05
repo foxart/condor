@@ -17,9 +17,9 @@ class FindAllUserHandler implements Command
     public function execute($url, $data = []): string
     {
         debug($url);
-        $userList = $this->userModel->findAllUser();
+        $userList = $this->userModel->findAll();
         ob_start();
-        include 'find-all-user.tpl';
+        include 'FindAllUserHandler.tpl';
         return ob_get_clean();
     }
 }

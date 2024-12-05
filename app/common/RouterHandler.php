@@ -4,7 +4,8 @@ namespace common;
 
 use handlers\FindAllTransactionHandler;
 use handlers\FindAllUserHandler;
-use handlers\FindOneUserByIdHandler;
+use handlers\FindOneUserHandler;
+use handlers\SummaryHandler;
 
 class RouterHandler
 {
@@ -31,7 +32,7 @@ class RouterHandler
             );
         });
         $this->router->get(RouterConfig::USER->value . '/{id}', function ($id) {
-            $this->render(RouterConfig::USER->getTitle(), (new FindOneUserByIdHandler())->execute(
+            $this->render(RouterConfig::USER->getTitle(), (new FindOneUserHandler())->execute(
                 RouterConfig::USER->value . '/' . $id, [
                 'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
                 'userId' => $id
@@ -44,18 +45,7 @@ class RouterHandler
             $this->render(RouterConfig::TRANSACTION->getTitle(), (new FindAllTransactionHandler())->execute(
                 RouterConfig::TRANSACTION->value, [
                 'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                'url' => RouterConfig::TRANSACTION->value
             ]));
-        });
-        $this->router->get(RouterConfig::TRANSACTION->value . '/{id}', function ($id) {
-//            $content = '';
-//            $main = new FindAllUserHandler();
-//            $content .= $main->execute();
-//            $transactionManager = new FindAllTransactionByUserIdHandler();
-//            $content .= $transactionManager->execute(['userId' => $id]);
-            $this->render(MenuConfig::TRANSACTION->getTitle(), (new FindAllTransactionHandler())->execute(
-                RouterConfig::TRANSACTION->value
-            ));
         });
         $this->router->post(RouterConfig::TRANSACTION->value . '/transaction', function () {
             $inputData = json_decode(file_get_contents('php://input'), true);
@@ -63,6 +53,15 @@ class RouterHandler
                 'status' => 'success',
                 'data' => 'Transaction created',
                 'input' => $inputData
+            ]));
+        });
+        /**
+         * SUMMARY
+         */
+        $this->router->get(RouterConfig::SUMMARY->value, function () {
+            $this->render(RouterConfig::SUMMARY->getTitle(), (new SummaryHandler())->execute(
+                RouterConfig::SUMMARY->value, [
+                'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
             ]));
         });
         /**

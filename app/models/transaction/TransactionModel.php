@@ -4,16 +4,16 @@ namespace models\transaction;
 
 class TransactionModel
 {
-    private TransactionApi $api;
+    private TransactionApi $transactionApi;
 
     public function __construct()
     {
-        $this->api = new TransactionApi();
+        $this->transactionApi = new TransactionApi();
     }
 
-    public function findAllTransaction(): TransactionListIterator
+    public function findAll(): TransactionListIterator
     {
-        $transactionList = $this->api->getTransactionList();
+        $transactionList = $this->transactionApi->getTransactionList();
         $result = array_map(function ($transaction) {
             return new TransactionDto($transaction);
         }, $transactionList);

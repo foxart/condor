@@ -25,7 +25,7 @@ class FindAllTransactionHandler implements Command
     {
         $type = (string)($data['type'] ?? '');
         $userId = (int)($data['userId'] ?? 0);
-        $transactionList = $this->transactionModel->findAllTransaction();
+        $transactionList = $this->transactionModel->findAll();
 //        $groupList = $this->transactionModel->groupByType($transactionList);
         $typeList = $this->transactionModel->getTypeList($transactionList);
         $transactionList = $transactionList->filter(function (TransactionDto $item) use ($type, $userId) {
@@ -42,11 +42,11 @@ class FindAllTransactionHandler implements Command
         /**
          *
          */
-        $userList = $this->userModel->findAllUser();
+        $userList = $this->userModel->findAll();
         $res = $this->model->getByCountry($transactionList, $userList);
         debug($res);
         ob_start();
-        include 'find-all-transaction.tpl';
+        include 'FindAllTransactionHandler.tpl';
         return ob_get_clean();
     }
 }

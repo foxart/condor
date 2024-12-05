@@ -3,34 +3,34 @@
 namespace models\summary;
 class SummaryDto
 {
-    private int $countyId;
-    private string $countyName;
-    private string $countyCode;
+    private int $countryId;
+    private string $countryName;
+    private string $countryCode;
     private float $sum;
     private int $count;
 
     public function __construct(array $data = [])
     {
-        $this->countyId = $data['countyId'];
-        $this->countyName = $data['countyName'];
-        $this->countyCode = $data['countyCode'];
+        $this->countryId = $data['countryId'];
+        $this->countryName = $data['countryName'];
+        $this->countryCode = $data['countryCode'];
         $this->sum = $data['sum'];
         $this->count = $data['count'];
     }
 
-    public function getCountyId(): int
+    public function getCountryId(): int
     {
-        return $this->countyId;
+        return $this->countryId;
     }
 
-    public function getCountyName(): string
+    public function getCountryName(): string
     {
-        return $this->countyName;
+        return $this->countryName;
     }
 
-    public function getCountyCod(): string
+    public function getCountryCod(): string
     {
-        return $this->countyCode;
+        return $this->countryCode;
     }
 
     public function getSum(): float

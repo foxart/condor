@@ -13,6 +13,7 @@
     td {
         border: solid 1px black;
         border-collapse: collapse;
+        padding: 0.5cap;
     }
 
     ul {
@@ -22,8 +23,15 @@
 
     li {
         display: inline;
-        margin-right: 10px;
+        padding: 0;
     }
+    li:after {
+        content: "|";
+    }
+    li:last-child:after {
+        content: "";
+    }
+
 
     a {
         text-decoration: none;
@@ -43,12 +51,15 @@
         margin-bottom: 10px;
         font-size: 12px;
     }
+
     .error {
         color: red;
     }
+
     .debug {
         color: gray;
     }
+
     .info {
         color: blue;
     }
@@ -66,9 +77,11 @@
         <nav>
             <ul>
                 <?php foreach ($menuConfig as $menu): ?>
-                <a href="<?= htmlSpecialChars($menu->getRoute()) ?>">
-                    <?= htmlSpecialChars($menu->getTitle()) ?>
-                </a>
+                <li>
+                    <a href="<?= htmlSpecialChars($menu->getRoute()) ?>">
+                        <?= htmlSpecialChars($menu->getTitle()) ?>
+                    </a>
+                </li>
                 <?php endforeach; ?>
             </ul>
         </nav>

@@ -24,11 +24,6 @@ class CountryDto
         return $this->name;
     }
 
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
     public function getCode(): ?string
     {
         return $this->code;

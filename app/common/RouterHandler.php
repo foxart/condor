@@ -2,6 +2,7 @@
 
 namespace common;
 
+use handlers\ApiHandler;
 use handlers\FindAllTransactionHandler;
 use handlers\FindAllUserHandler;
 use handlers\FindOneUserHandler;
@@ -39,6 +40,15 @@ class RouterHandler
             ]));
         });
         /**
+         * SUMMARY
+         */
+        $this->router->get(RouterConfig::SUMMARY->value, function () {
+            $this->render(RouterConfig::SUMMARY->getTitle(), (new SummaryHandler())->execute(
+                RouterConfig::SUMMARY->value, [
+                'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            ]));
+        });
+        /**
          * TRANSACTION
          */
         $this->router->get(RouterConfig::TRANSACTION->value, function () {
@@ -49,20 +59,24 @@ class RouterHandler
         });
         $this->router->post(RouterConfig::TRANSACTION->value . '/transaction', function () {
             $inputData = json_decode(file_get_contents('php://input'), true);
-            $this->render(RouterConfig::TRANSACTION->getTitle(), json_encode([
+            return json_encode([
                 'status' => 'success',
                 'data' => 'Transaction created',
                 'input' => $inputData
-            ]));
+            ]);
         });
         /**
-         * SUMMARY
+         * API
          */
-        $this->router->get(RouterConfig::SUMMARY->value, function () {
-            $this->render(RouterConfig::SUMMARY->getTitle(), (new SummaryHandler())->execute(
-                RouterConfig::SUMMARY->value, [
-                'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-            ]));
+        $this->router->get(RouterConfig::API->value, function () {
+            $this->render(RouterConfig::API->getTitle(), (new ApiHandler())->execute(
+                RouterConfig::API->value));
+        });
+        $this->router->get(RouterConfig::API->value . '/country', function () {
+            echo (new ApiHandler())->getCountryJson();
+        });
+        $this->router->get(RouterConfig::API->value . '/user', function () {
+            echo (new ApiHandler())->getUserJson();
         });
         /**
          * EXPORT

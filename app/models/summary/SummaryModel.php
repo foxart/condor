@@ -10,6 +10,25 @@ use Throwable;
 
 class SummaryModel
 {
+    public function getByCountryAsArray(TransactionIterator $transactionList, UserIterator $userList): array
+    {
+        $iterator = $this->getByCountry($transactionList, $userList);
+        return array_map(function ($value) {
+            return [
+                'country' => [
+                    'id' => $value->getCountry()
+                        ->getId(),
+                    'name' => $value->getCountry()
+                        ->getName(),
+                    'code' => $value->getCountry()
+                        ->getCode(),
+                ],
+                'sum' => $value->getSum(),
+                'count' => $value->getCount(),
+            ];
+        }, iterator_to_array($iterator));
+    }
+
     public function getByCountry(TransactionIterator $transactionList, UserIterator $userList): SummaryByCountryIterator
     {
         $result = [];
@@ -32,6 +51,52 @@ class SummaryModel
             }
         }
         return new SummaryByCountryIterator($result);
+    }
+
+    public function getByUserAsArray(TransactionIterator $transactionList, UserIterator $userList): array
+    {
+        $iterator = $this->getByUser($transactionList, $userList);
+        return array_map(function ($value) {
+            $user = $value->getUser();
+            return [
+                'user' => [
+                    'id' => $user->getId(),
+                    'email' => $user->getEmail(),
+                    'username' => $user->getUsername(),
+                    'password' => $user->getPassword(),
+                    'firstname' => $user->getFirstname(),
+                    'lastname' => $user->getLastname(),
+                    'dob' => $user->getDob(),
+                    'city' => $user->getCity(),
+                    'zipcode' => $user->getZipcode(),
+                    'address' => $user->getAddress(),
+                    'created_at' => $user->getCreatedAt(),
+                    'country' => [
+                        'id' => $user->getCountry()
+                            ->getId(),
+                        'name' => $user->getCountry()
+                            ->getName(),
+                        'code' => $user->getCountry()
+                            ->getCode(),
+                    ],
+                    'status' => [
+                        'id' => $user->getStatus()
+                            ->getId(),
+                        'name' => $user->getStatus()
+                            ->getName(),
+                    ],
+                ],
+                'summary' => array_map(function (SummaryByUserDateDto $summary) {
+                    return [
+                        'date' => $summary->getDate(),
+                        'sum' => $summary->getSum(),
+                        'count' => $summary->getCount(),
+                    ];
+                }, iterator_to_array($value->getSummary())),
+                'count' => $value->getCount(),
+                'sum' => $value->getSum(),
+            ];
+        }, iterator_to_array($iterator));
     }
 
     public function getByUser(TransactionIterator $transactionList, UserIterator $userList): SummaryByUserIterator

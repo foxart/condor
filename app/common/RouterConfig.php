@@ -7,6 +7,7 @@ enum RouterConfig: string
     case USER = '/user';
     case TRANSACTION = '/transaction';
     case SUMMARY = '/summary';
+    case API = '/api';
     case EXPORT = '/export';
     case TASK = '/task';
 
@@ -17,6 +18,7 @@ enum RouterConfig: string
             self::USER => 'User details / Transaction history',
             self::TRANSACTION => 'Transactions',
             self::SUMMARY => 'Summary',
+            self::API => 'Api',
             self::EXPORT => 'Export',
             self::TASK => 'Task',
         };

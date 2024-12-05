@@ -1,7 +1,6 @@
 <?php
 
 namespace common;
-use Exception;
 
 class Router
 {
@@ -23,7 +22,7 @@ class Router
 
     private function convertPathToRegex(string $path): string
     {
-        return '/^' . preg_replace('/\{(\w+)\}/', '(?P<\1>[^\/]+)', str_replace('/', '\/', $path)) . '$/';
+        return '/^' . preg_replace('/\{(\w+)}/', '(?P<\1>[^\/]+)', str_replace('/', '\/', $path)) . '$/';
     }
 
     public function post(string $path, callable $handler): void

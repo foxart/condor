@@ -2,8 +2,10 @@
 
 namespace models\user;
 
+use DateTime;
 use models\country\CountryDto;
 use models\status\StatusDto;
+use Throwable;
 
 class UserDto
 {
@@ -17,7 +19,7 @@ class UserDto
     private string $city;
     private string $zipcode;
     private string $address;
-    private string $createdAt;
+    private DateTime $createdAt;
     private CountryDto $country;
     private StatusDto $status;
 
@@ -33,7 +35,12 @@ class UserDto
         $this->city = $data['city'];
         $this->zipcode = $data['zipcode'];
         $this->address = $data['address'];
-        $this->createdAt = $data['created_at'];
+        try {
+            $this->createdAt = new DateTime($data['created_at']);
+        } catch (Throwable $e) {
+            debugException($e);
+            $this->createdAt = new DateTime();
+        }
         $this->country = new CountryDto([
             'id' => $data['country_id'],
             'name' => $data['country_name'],
@@ -95,7 +102,7 @@ class UserDto
         return $this->address;
     }
 
-    public function getCreatedAt(): string
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }

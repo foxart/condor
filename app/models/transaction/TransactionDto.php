@@ -1,12 +1,15 @@
 <?php
 
 namespace models\transaction;
+use DateTime;
+use Throwable;
+
 class TransactionDto
 {
     private int $id;
     private string $type;
     private int $userId;
-    private string $date;
+    private DateTime $date;
     private float $amount;
     private string $currency;
     private bool $processed;
@@ -17,7 +20,12 @@ class TransactionDto
         $this->id = $data['id'];
         $this->type = $data['type'];
         $this->userId = $data['user_id'];
-        $this->date = $data['date'];
+        try {
+            $this->date = new DateTime($data['date']);
+        } catch (Throwable $e) {
+            debugException($e);
+            $this->date = new DateTime();
+        }
         $this->amount = $data['amount'];
         $this->currency = $data['currency'];
         $this->processed = $data['processed'];
@@ -39,7 +47,7 @@ class TransactionDto
         return $this->userId;
     }
 
-    public function getDate(): string
+    public function getDate(): DateTime
     {
         return $this->date;
     }

@@ -27,7 +27,6 @@ class SummaryHandler implements Command
         $userList = $this->userModel->findAll();
         $byCountryList = $this->summaryModel->getByCountry($transactionList, $userList);
         $byUserList = $this->summaryModel->getByUser($transactionList, $userList);
-//        debug($byUserList);
         ob_start();
         include 'SummaryHandler.tpl';
         return ob_get_clean();

@@ -45,6 +45,12 @@ class UserIterator implements Iterator, Countable
         return count($this->collection);
     }
 
+    /**
+     * Iterates over the items and returns the first item that satisfies the given callback function.
+     *
+     * @param callable $callback A function that is applied to each item. The function should return true for the desired item.
+     * @return UserDto|null Returns the first item for which the callback returns true, or null if no such item is found.
+     */
     public function find(callable $callback): UserDto | null
     {
         foreach ($this as $item) {

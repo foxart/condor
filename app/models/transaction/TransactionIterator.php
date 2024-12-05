@@ -46,6 +46,13 @@ class TransactionIterator implements Iterator, Countable
         return count($this->collection);
     }
 
+    /**
+     * Filters the current collection of items using a callback function.
+     *
+     * @param callable $callback A function that determines whether an item should be included in the result. It should return true for items to include and false for items to exclude.
+     *
+     * @return TransactionIterator A new instance of TransactionIterator containing the items that match the criteria specified by the callback.
+     */
     public function filter(callable $callback): TransactionIterator
     {
         $result = [];

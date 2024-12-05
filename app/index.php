@@ -15,5 +15,15 @@ function debug(mixed $data, string $class = 'debug'): void
     echo "</pre>";
 }
 
+function debugException(Throwable $e)
+{
+    debug([
+        'message'=>$e->getMessage(),
+        'code'=>$e->getCode(),
+        'file'=>$e->getFile(),
+        'line'=>$e->getLine(),
+    ]);
+}
+
 $routerHandler = new RouterHandler(__DIR__ . '/index.tpl');
 $routerHandler->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

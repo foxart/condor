@@ -31,7 +31,7 @@
             <td><?= htmlSpecialChars($transaction->getId()); ?></td>
             <td><?= htmlSpecialChars($transaction->getType()); ?></td>
             <td><?= htmlSpecialChars($transaction->getUserId()); ?></td>
-            <td><?= htmlSpecialChars($transaction->getDate()); ?></td>
+            <td><?= htmlSpecialChars($transaction->getDate()->format('Y-m-d H:i:s')); ?></td>
             <td><?= htmlSpecialChars($transaction->getAmount()); ?></td>
             <td><?= htmlSpecialChars($transaction->getCurrency()); ?></td>
             <td><?= htmlSpecialChars($transaction->isProcessed()) ? 'Yes' : 'No'; ?></td>

@@ -3,16 +3,16 @@
 namespace common;
 enum MenuConfig: string
 {
-    case HOME = 'home';
-    case TRANSACTION = 'transaction';
-    case EXPORT = 'export';
+    case USER = 'user';
     case SUMMARY = 'summary';
+    case EXPORT = 'export';
+    case TRANSACTION = 'transaction';
     case TASK = 'task';
 
     public function getRoute(): string
     {
         return match ($this) {
-            self::HOME => RouterConfig::USER_LIST->value,
+            self::USER => RouterConfig::USER_LIST->value,
             self::TRANSACTION => RouterConfig::TRANSACTION->value,
             self::EXPORT => RouterConfig::EXPORT->value,
             self::SUMMARY => RouterConfig::SUMMARY->value,
@@ -23,7 +23,7 @@ enum MenuConfig: string
     public function getTitle(): string
     {
         return match ($this) {
-            self::HOME => 'Users',
+            self::USER => 'Users',
             self::TRANSACTION => 'Transactions',
             self::SUMMARY => 'Summary',
             self::EXPORT => 'Export',

@@ -21,5 +21,4 @@ enum RouterConfig: string
             self::TASK => 'Task',
         };
     }
-
 }

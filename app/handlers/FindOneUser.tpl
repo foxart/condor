@@ -47,7 +47,7 @@
                 </tr>
                 <tr>
                     <td>CreatedAt</td>
-                    <td><?= htmlSpecialChars($user->getCreatedAt()); ?></td>
+                    <td><?= htmlSpecialChars($user->getCreatedAt()->format('Y-m-d H:i:s')); ?></td>
                 </tr>
                 <tr>
                     <td>CountryId</td>

@@ -1,5 +1,8 @@
 <?php
-class OutputHandler {
+
+namespace common;
+class OutputHandler
+{
     public static function toCSV($data, $filename): void
     {
         $file = fopen($filename, 'w');

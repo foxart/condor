@@ -76,7 +76,7 @@ class RouterHandler
          */
         $this->router->get(RouterConfig::TASK->value, function () {
             $content = nl2br(file_get_contents('index.md'));
-            $this->render(MenuConfig::EXPORT->getTitle(), $content);
+            $this->render(MenuConfig::TASK->getTitle(), $content);
         });
     }
 

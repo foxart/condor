@@ -11,16 +11,16 @@ class TransactionModel
         $this->transactionApi = new TransactionApi();
     }
 
-    public function findAll(): TransactionListIterator
+    public function findAll(): TransactionIterator
     {
         $transactionList = $this->transactionApi->getTransactionList();
         $result = array_map(function ($transaction) {
             return new TransactionDto($transaction);
         }, $transactionList);
-        return new TransactionListIterator($result);
+        return new TransactionIterator($result);
     }
 
-    public function getTypeList(TransactionListIterator $transactionDtoList): array
+    public function getTypeList(TransactionIterator $transactionDtoList): array
     {
         $uniqueValues = [];
         foreach ($transactionDtoList as $transaction) {
@@ -29,7 +29,7 @@ class TransactionModel
         return array_unique($uniqueValues);
     }
 
-    public function groupByType(TransactionListIterator $transactionDtoList): array
+    public function groupByType(TransactionIterator $transactionDtoList): array
     {
         $grouped = [];
         foreach ($transactionDtoList as $transactionDto) {

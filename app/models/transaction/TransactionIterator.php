@@ -1,11 +1,12 @@
 <?php
 
-namespace models\summary;
+namespace models\transaction;
 
 use Countable;
 use Iterator;
+use models\user\UserDto;
 
-class SummaryListIterator implements Iterator, Countable
+class TransactionIterator implements Iterator, Countable
 {
     private array $collection;
 
@@ -14,7 +15,7 @@ class SummaryListIterator implements Iterator, Countable
         $this->collection = $array;
     }
 
-    public function current(): SummaryDto
+    public function current(): TransactionDto
     {
         return current($this->collection);
     }
@@ -43,5 +44,16 @@ class SummaryListIterator implements Iterator, Countable
     public function count(): int
     {
         return count($this->collection);
+    }
+
+    public function filter(callable $callback): TransactionIterator
+    {
+        $result = [];
+        foreach ($this as $item) {
+            if ($callback($item)) {
+                $result[] = $item;
+            }
+        }
+        return new TransactionIterator($result);
     }
 }

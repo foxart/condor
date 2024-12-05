@@ -2,24 +2,24 @@
 
 namespace models\summary;
 
-use models\user\UserDto;
+use models\country\CountryDto;
 
-class SummaryDto
+class SummaryByCountryDto
 {
     private float $sum;
     private int $count;
-    private UserDto $user;
+    private CountryDto $country;
 
     public function __construct(array $data = [])
     {
-        $this->user = $data['user'];
+        $this->country = $data['country'];
         $this->sum = $data['sum'];
         $this->count = $data['count'];
     }
 
-    public function getUser(): UserDto
+    public function getCountry(): CountryDto
     {
-        return $this->user;
+        return $this->country;
     }
 
     public function getSum(): float

@@ -7,19 +7,19 @@ use models\status\StatusDto;
 
 class UserDto
 {
-    public int $id;
-    public string $email;
-    public string $username;
-    public string $password;
-    public string $firstname;
-    public string $lastname;
-    public string $dob;
-    public string $city;
-    public string $zipcode;
-    public string $address;
-    public string $createdAt;
-    public CountryDto $country;
-    public StatusDto $status;
+    private int $id;
+    private string $email;
+    private string $username;
+    private string $password;
+    private string $firstname;
+    private string $lastname;
+    private string $dob;
+    private string $city;
+    private string $zipcode;
+    private string $address;
+    private string $createdAt;
+    private CountryDto $country;
+    private StatusDto $status;
 
     public function __construct(array $data = [])
     {

@@ -5,7 +5,7 @@ namespace models\summary;
 use Countable;
 use Iterator;
 
-class SummaryByUserMonthListIterator implements Iterator, Countable
+class SummaryByUserDateIterator implements Iterator, Countable
 {
     private array $collection;
 
@@ -14,7 +14,7 @@ class SummaryByUserMonthListIterator implements Iterator, Countable
         $this->collection = $array;
     }
 
-    public function current(): SummaryMonthDto
+    public function current(): SummaryByUserDateDto
     {
         return current($this->collection);
     }

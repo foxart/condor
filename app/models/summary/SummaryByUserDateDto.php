@@ -4,29 +4,29 @@ namespace models\summary;
 
 use models\user\UserDto;
 
-class SummaryMonthDto
+class SummaryByUserDateDto
 {
     private float $sum;
     private int $count;
-    private string $month;
-    private UserDto $user;
+    private string $date;
+//    private UserDto $user;
 
     public function __construct(array $data = [])
     {
-        $this->user = $data['user'];
-        $this->month = $data['month'];
+//        $this->user = $data['user'];
+        $this->date = $data['date'];
         $this->sum = $data['sum'];
         $this->count = $data['count'];
     }
 
-    public function getUser(): UserDto
-    {
-        return $this->user;
-    }
+//    public function getUser(): UserDto
+//    {
+//        return $this->user;
+//    }
 
-    public function getMonth(): string
+    public function getDate(): string
     {
-        return $this->month;
+        return $this->date;
     }
 
     public function getSum(): float

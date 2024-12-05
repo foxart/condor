@@ -16,8 +16,8 @@ class SummaryHandler implements Command
     public function __construct()
     {
         $this->userModel = new UserModel();
-        $this->summaryModel = new SummaryModel();
         $this->transactionModel = new TransactionModel();
+        $this->summaryModel = new SummaryModel();
     }
 
     public function execute($url, $data = []): string
@@ -26,8 +26,8 @@ class SummaryHandler implements Command
         $transactionList = $this->transactionModel->findAll();
         $userList = $this->userModel->findAll();
         $byCountryList = $this->summaryModel->getByCountry($transactionList, $userList);
-        $byUserMonth = $this->summaryModel->getByUser($transactionList, $userList);
-//        debug($byUserMonth);
+        $byUserList = $this->summaryModel->getByUser($transactionList, $userList);
+//        debug($byUserList);
         ob_start();
         include 'SummaryHandler.tpl';
         return ob_get_clean();

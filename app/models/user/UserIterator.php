@@ -5,7 +5,7 @@ namespace models\user;
 use Countable;
 use Iterator;
 
-class UserListIterator implements Iterator, Countable
+class UserIterator implements Iterator, Countable
 {
     private array $collection;
 

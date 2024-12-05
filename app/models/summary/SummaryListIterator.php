@@ -1,11 +1,12 @@
 <?php
 
-namespace models\user;
+namespace models\summary;
 
 use Countable;
 use Iterator;
+use models\user\UserDto;
 
-class UserListIterator implements Iterator, Countable
+class SummaryListIterator implements Iterator, Countable
 {
     private array $collection;
 
@@ -14,7 +15,7 @@ class UserListIterator implements Iterator, Countable
         $this->collection = $array;
     }
 
-    public function current(): UserDto
+    public function current(): SummaryDto
     {
         return current($this->collection);
     }
@@ -45,13 +46,4 @@ class UserListIterator implements Iterator, Countable
         return count($this->collection);
     }
 
-    public function find(callable $callback): UserDto | null
-    {
-        foreach ($this as $item) {
-            if ($callback($item)) {
-                return $item;
-            }
-        }
-        return null;
-    }
 }

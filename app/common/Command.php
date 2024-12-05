@@ -3,5 +3,5 @@
 namespace common;
 interface Command
 {
-    public function execute(array $data = []): string;
+    public function execute(string $url, array $data = []): string;
 }

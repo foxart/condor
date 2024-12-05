@@ -6,13 +6,15 @@ enum MenuConfig: string
     case HOME = 'home';
     case TRANSACTION = 'transaction';
     case EXPORT = 'export';
+    case TASK = 'task';
 
     public function getRoute(): string
     {
         return match ($this) {
-            self::HOME => RouterConfig::HOME->value,
+            self::HOME => RouterConfig::USER_LIST->value,
             self::TRANSACTION => RouterConfig::TRANSACTION->value,
             self::EXPORT => RouterConfig::EXPORT->value,
+            self::TASK => RouterConfig::TASK->value,
         };
     }
 
@@ -22,6 +24,7 @@ enum MenuConfig: string
             self::HOME => 'Users',
             self::TRANSACTION => 'Transactions',
             self::EXPORT => 'Export',
+            self::TASK => 'Task',
         };
     }
 }

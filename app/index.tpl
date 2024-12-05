@@ -1,6 +1,11 @@
 <style>
+    body {
+        padding: 22px;
+        font-size: 24px;
+    }
+
     table {
-        font-size: 20px;
+        font-size: 18px;
         border-collapse: collapse;
         width: 100%;
     }
@@ -11,7 +16,6 @@
     }
 
     ul {
-        font-size: 30px;
         list-style-type: none;
         padding: 0;
     }
@@ -30,6 +34,25 @@
         text-decoration: underline;
         color: #007BFF;
     }
+
+    .error, .debug, .info {
+        display: block;
+        font-style: italic;
+        padding-left: 20px;
+        border-left: 2px solid #ccc;
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+    .error {
+        color: red;
+    }
+    .debug {
+        color: gray;
+    }
+    .info {
+        color: blue;
+    }
+
 </style>
 
 <!DOCTYPE html>
@@ -42,13 +65,11 @@
     <body>
         <nav>
             <ul>
-                <?php
-					foreach ($menuConfig as $item) {
-						$title = htmlSpecialChars($item->getTitle());
-                        $link = htmlSpecialChars($item->getRoute());
-                        echo "<li><a href='{$link}'>$title</a></li>";
-                    }
-                ?>
+                <?php foreach ($menuConfig as $menu): ?>
+                <a href="<?= htmlSpecialChars($menu->getRoute()) ?>">
+                    <?= htmlSpecialChars($menu->getTitle()) ?>
+                </a>
+                <?php endforeach; ?>
             </ul>
         </nav>
         <div id="content">

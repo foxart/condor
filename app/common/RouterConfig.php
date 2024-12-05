@@ -3,18 +3,20 @@
 namespace common;
 enum RouterConfig: string
 {
-    case HOME = '/';
+    case USER_LIST = '/';
     case USER = '/user';
     case TRANSACTION = '/transaction';
     case EXPORT = '/export';
+    case TASK = '/task';
 
     public function getTitle(): string
     {
         return match ($this) {
-            self::HOME => 'User list',
-            self::USER => 'Users',
+            self::USER_LIST => 'Users',
+            self::USER => 'User details / Transaction history',
             self::TRANSACTION => 'Transactions',
             self::EXPORT => 'Export',
+            self::TASK => 'Task',
         };
     }
 

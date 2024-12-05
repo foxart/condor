@@ -2,9 +2,9 @@
 
 namespace common;
 
-use handlers\FindAllTransactionByUserIdHandler;
 use handlers\FindAllTransactionHandler;
-use handlers\UserListHandler;
+use handlers\FindAllUserHandler;
+use handlers\FindOneUserByIdHandler;
 
 class RouterHandler
 {
@@ -22,28 +22,40 @@ class RouterHandler
 
     private function setupRoutes(): void
     {
-        $this->router->get(RouterConfig::HOME->value, function () {
-            $this->render(RouterConfig::HOME->getTitle(), (new UserListHandler())->execute());
-        });
         /**
          * USER
          */
-        $this->router->get(RouterConfig::USER->value . '/{id}', function () {
-            $this->render(RouterConfig::HOME->getTitle(), (new UserListHandler())->execute());
+        $this->router->get(RouterConfig::USER_LIST->value, function () {
+            $this->render(RouterConfig::USER_LIST->getTitle(), (new FindAllUserHandler())->execute(
+                RouterConfig::USER->value)
+            );
+        });
+        $this->router->get(RouterConfig::USER->value . '/{id}', function ($id) {
+            $this->render(RouterConfig::USER->getTitle(), (new FindOneUserByIdHandler())->execute(
+                RouterConfig::USER->value . '/' . $id, [
+                'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                'userId' => $id
+            ]));
         });
         /**
          * TRANSACTION
          */
         $this->router->get(RouterConfig::TRANSACTION->value, function () {
-            $this->render(RouterConfig::TRANSACTION->getTitle(), (new FindAllTransactionHandler())->execute());
+            $this->render(RouterConfig::TRANSACTION->getTitle(), (new FindAllTransactionHandler())->execute(
+                RouterConfig::TRANSACTION->value, [
+                'type' => filter_input(INPUT_GET, 'type', FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                'url' => RouterConfig::TRANSACTION->value
+            ]));
         });
         $this->router->get(RouterConfig::TRANSACTION->value . '/{id}', function ($id) {
-            $content = '';
-            $main = new UserListHandler();
-            $content .= $main->execute();
-            $transactionManager = new FindAllTransactionByUserIdHandler();
-            $content .= $transactionManager->execute(['userId' => $id]);
-            $this->render(MenuConfig::TRANSACTION->getTitle(), $content);
+//            $content = '';
+//            $main = new FindAllUserHandler();
+//            $content .= $main->execute();
+//            $transactionManager = new FindAllTransactionByUserIdHandler();
+//            $content .= $transactionManager->execute(['userId' => $id]);
+            $this->render(MenuConfig::TRANSACTION->getTitle(), (new FindAllTransactionHandler())->execute(
+                RouterConfig::TRANSACTION->value
+            ));
         });
         $this->router->post(RouterConfig::TRANSACTION->value . '/transaction', function () {
             $inputData = json_decode(file_get_contents('php://input'), true);
@@ -57,7 +69,15 @@ class RouterHandler
          * EXPORT
          */
         $this->router->get(RouterConfig::EXPORT->value, function () {
-            $this->render(RouterConfig::EXPORT->getTitle(), RouterConfig::EXPORT->value);
+            $content = 'export';
+            $this->render(MenuConfig::EXPORT->getTitle(), $content);
+        });
+        /**
+         * TASK
+         */
+        $this->router->get(RouterConfig::TASK->value, function () {
+            $content = nl2br(file_get_contents('index.md'));
+            $this->render(MenuConfig::EXPORT->getTitle(), $content);
         });
     }
 

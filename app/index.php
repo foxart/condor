@@ -8,27 +8,12 @@ spl_autoload_register(function ($class) {
         require_once $file;
     }
 });
-function debug($data): void
+function debug(mixed $data, string $class = 'debug'): void
 {
-    echo '<pre>';
+    echo "<pre class='$class'>";
     print_r($data);
-    echo '</pre>';
+    echo "</pre>";
 }
 
 $routerHandler = new RouterHandler(__DIR__ . '/index.tpl');
 $routerHandler->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-/**
- *
- */
-//$transactionManager = new TransactionManager($db);
-//$dataAggregator = new DataAggregator($db);
-// Получение данных пользователя
-//$userId = 1; // Пример
-//$data = $transactionManager->getUserTransactions($userId);
-//$groupedTransactions = $transactionManager->groupByType($data['transactions']);
-// Агрегация данных
-//$countryStats = $dataAggregator->aggregateByCountry();
-//$userMonthStats = $dataAggregator->aggregateByUserMonth();
-// Создание CSV
-//OutputHandler::toCSV($countryStats, 'country_stats.csv');
-//OutputHandler::toCSV($userMonthStats, 'user_month_stats.csv');

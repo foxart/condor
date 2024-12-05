@@ -1,6 +1,8 @@
 <?php
 
 namespace common;
+use Exception;
+
 class Router
 {
     private array $routes = [];

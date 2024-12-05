@@ -1,3 +1,17 @@
+<?= debug(get_class($this)); ?>
+<ul>
+    <li>
+        <a href="<?= $url ?>">all</a>
+    </li>
+    <?php foreach ($typeList as $type): ?>
+    <li>
+        <a href="<?= $url . '?type=' . htmlSpecialChars($type) ?>">
+            <?= htmlSpecialChars($type) ?>
+        </a>
+    </li>
+    <?php endforeach; ?>
+</ul>
+
 <table>
     <thead>
         <tr>
@@ -12,7 +26,7 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($transactions as $transaction): ?>
+        <?php foreach ($transactionList as $transaction): ?>
         <tr>
             <td><?= htmlSpecialChars($transaction->getId()); ?></td>
             <td><?= htmlSpecialChars($transaction->getType()); ?></td>

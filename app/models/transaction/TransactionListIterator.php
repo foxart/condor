@@ -45,4 +45,15 @@ class TransactionListIterator implements Iterator, Countable
     {
         return count($this->collection);
     }
+
+    public function filter(callable $callback): TransactionListIterator
+    {
+        $result = [];
+        foreach ($this as $item) {
+            if ($callback($item)) {
+                $result[] = $item;
+            }
+        }
+        return new TransactionListIterator($result);
+    }
 }

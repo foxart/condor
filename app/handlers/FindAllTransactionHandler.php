@@ -3,20 +3,48 @@
 namespace handlers;
 
 use common\Command;
+use models\summary\SummaryModel;
+use models\transaction\TransactionDto;
 use models\transaction\transactionModel;
+use models\user\UserModel;
 
 class FindAllTransactionHandler implements Command
 {
-    private transactionModel $model;
+    private transactionModel $transactionModel;
+    private UserModel $userModel;
+    private SummaryModel $model;
 
     public function __construct()
     {
-        $this->model = new TransactionModel();
+        $this->userModel = new UserModel();
+        $this->transactionModel = new TransactionModel();
+        $this->model = new SummaryModel();
     }
 
-    public function execute(array $data = []): string
+    public function execute($url, $data = []): string
     {
-        $transactions = $this->model->findAllTransaction();
+        $type = (string)($data['type'] ?? '');
+        $userId = (int)($data['userId'] ?? 0);
+        $transactionList = $this->transactionModel->findAllTransaction();
+//        $groupList = $this->transactionModel->groupByType($transactionList);
+        $typeList = $this->transactionModel->getTypeList($transactionList);
+        $transactionList = $transactionList->filter(function (TransactionDto $item) use ($type, $userId) {
+            $isType = true;
+            $isUserId = true;
+            if ($userId) {
+                $isUserId = $item->getUserId() === $userId;
+            }
+            if ($type) {
+                $isType = strtolower($item->getType()) === strtolower($type);
+            }
+            return $isType && $isUserId;
+        });
+        /**
+         *
+         */
+        $userList = $this->userModel->findAllUser();
+        $res = $this->model->getByCountry($transactionList, $userList);
+        debug($res);
         ob_start();
         include 'find-all-transaction.tpl';
         return ob_get_clean();

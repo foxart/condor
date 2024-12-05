@@ -19,8 +19,8 @@
                     </a>
 				</td>
 				<td><?= htmlSpecialChars($user->getCity()); ?></td>
-				<td><?= htmlSpecialChars($user->getStatusName()); ?></td>
-				<td><?= htmlSpecialChars($user->getCountryName()); ?></td>
+				<td><?= htmlSpecialChars($user->getStatus()->getName()); ?></td>
+				<td><?= htmlSpecialChars($user->getCountry()->getName()); ?></td>
 			</tr>
         <?php endforeach; ?>
 	</tbody>

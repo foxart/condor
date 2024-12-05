@@ -4,7 +4,6 @@ namespace handlers;
 
 use common\Command;
 use models\summary\SummaryModel;
-use models\transaction\TransactionDto;
 use models\transaction\TransactionModel;
 use models\user\UserModel;
 
@@ -24,20 +23,13 @@ class SummaryHandler implements Command
     public function execute($url, $data = []): string
     {
         $type = (string)($data['type'] ?? '');
-        debug($data);
         $transactionList = $this->transactionModel->findAll();
         $userList = $this->userModel->findAll();
         $byCountryList = $this->summaryModel->getByCountry($transactionList, $userList);
-        debug($byCountryList);
-
-//        foreach ($byCountryList as $item)
-//        {
-//            debug($item);
-//        }
-
+        $byUserMonth = $this->summaryModel->getByUser($transactionList, $userList);
+//        debug($byUserMonth);
         ob_start();
-//        include 'SummaryHandler.tpl';
-        echo 123;
+        include 'SummaryHandler.tpl';
         return ob_get_clean();
     }
 }

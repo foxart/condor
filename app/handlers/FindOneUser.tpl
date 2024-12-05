@@ -51,23 +51,23 @@
                 </tr>
                 <tr>
                     <td>CountryId</td>
-                    <td><?= htmlSpecialChars($user->getCountryId()); ?></td>
+                    <td><?= htmlSpecialChars($user->getCountry()->getId()); ?></td>
                 </tr>
                 <tr>
                     <td>CountryName</td>
-                    <td><?= htmlSpecialChars($user->getCountryName()); ?></td>
+                    <td><?= htmlSpecialChars($user->getCountry()->getName()); ?></td>
                 </tr>
                 <tr>
                     <td>CountryCode</td>
-                    <td><?= htmlSpecialChars($user->getCountryCode()); ?></td>
+                    <td><?= htmlSpecialChars($user->getCountry()->getCode()); ?></td>
                 </tr>
                 <tr>
                     <td>StatusId</td>
-                    <td><?= htmlSpecialChars($user->getStatusId()); ?></td>
+                    <td><?= htmlSpecialChars($user->getStatus()->getId()); ?></td>
                 </tr>
                 <tr>
                     <td>StatusName</td>
-                    <td><?= htmlSpecialChars($user->getStatusName()); ?></td>
+                    <td><?= htmlSpecialChars($user->getStatus()->getName()); ?></td>
                 </tr>
             </tbody>
         </table>

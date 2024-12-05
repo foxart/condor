@@ -19,11 +19,6 @@ class CountryDto
         return $this->id;
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -37,10 +32,5 @@ class CountryDto
     public function getCode(): ?string
     {
         return $this->code;
-    }
-
-    public function setCode(string $code): void
-    {
-        $this->code = $code;
     }
 }

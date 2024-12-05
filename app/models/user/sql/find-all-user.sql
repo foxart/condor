@@ -10,10 +10,10 @@ SELECT
     users.zipcode,
     users.address,
     users.created_at,
-    users.country AS country_id,
+    country.id AS country_id,
     country.name AS country_name,
     country.code AS country_code,
-    users.status AS status_id,
+    status.id AS status_id,
     status.name AS status_name
 FROM
     users

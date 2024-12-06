@@ -14,8 +14,8 @@ class TransactionApi
 
     public function getTransactionList()
     {
-        return $this->getCache();
-        $url = "$this->apiUrl?api-key={$this->apiKey}";
+//        return $this->getCache();
+        $url = "$this->apiUrl?api-key=$this->apiKey";
         $curl = curl_init();
         curl_setopt_array($curl, [
             CURLOPT_URL => $url,

@@ -3,11 +3,12 @@
 namespace handlers;
 
 use common\Command;
+use common\OutputHandler;
 use models\summary\SummaryModel;
 use models\transaction\TransactionModel;
 use models\user\UserModel;
 
-class ApiHandler implements Command
+class ExportHandler implements Command
 {
     private UserModel $userModel;
     private SummaryModel $summaryModel;
@@ -27,21 +28,23 @@ class ApiHandler implements Command
         $byCountryList = $this->summaryModel->getByCountry($transactionList, $userList);
         $byUserList = $this->summaryModel->getByUser($transactionList, $userList);
         ob_start();
-        include 'ApiHandler.tpl';
+        include 'ExportHandler.tpl';
         return ob_get_clean();
     }
 
-    public function getCountryJson(): string
+    public function getCountryCsv(): void
     {
         $transactionList = $this->transactionModel->findAll();
         $userList = $this->userModel->findAll();
-        return json_encode($this->summaryModel->getByCountryAsPlainArray($transactionList, $userList));
+        $data = $this->summaryModel->getByCountryAsPlainArray($transactionList, $userList);
+        OutputHandler::outputCsv($data, 'byCountryList.csv');
     }
 
-    public function getUserJson(): string
+    public function getUserCsv(): void
     {
         $transactionList = $this->transactionModel->findAll();
         $userList = $this->userModel->findAll();
-        return json_encode($this->summaryModel->getByUserAsArray($transactionList, $userList));
+        $data = $this->summaryModel->getByUserAsPlainArray($transactionList, $userList);
+        OutputHandler::outputCsv($data, 'byUserList.csv');
     }
 }

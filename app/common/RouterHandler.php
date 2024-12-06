@@ -3,6 +3,7 @@
 namespace common;
 
 use handlers\ApiHandler;
+use handlers\ExportHandler;
 use handlers\FindAllTransactionHandler;
 use handlers\FindAllUserHandler;
 use handlers\FindOneUserHandler;
@@ -82,8 +83,14 @@ class RouterHandler
          * EXPORT
          */
         $this->router->get(RouterConfig::EXPORT->value, function () {
-            $content = 'export';
-            $this->render(MenuConfig::EXPORT->getTitle(), $content);
+            $this->render(RouterConfig::EXPORT->getTitle(), (new ExportHandler())->execute(
+                RouterConfig::EXPORT->value));
+        });
+        $this->router->get(RouterConfig::EXPORT->value . '/country', function () {
+            (new ExportHandler())->getCountryCsv();
+        });
+        $this->router->get(RouterConfig::EXPORT->value . '/user', function () {
+            (new ExportHandler())->getUserCsv();
         });
         /**
          * TASK

@@ -13,7 +13,7 @@ class SummaryModel
     public function getByCountryAsArray(TransactionIterator $transactionList, UserIterator $userList): array
     {
         $iterator = $this->getByCountry($transactionList, $userList);
-        return array_map(function ($value) {
+        return array_map(function (SummaryByCountryDto $value) {
             return [
                 'country' => [
                     'id' => $value->getCountry()
@@ -50,13 +50,30 @@ class SummaryModel
                 $result[$countryId]->incCount(1);
             }
         }
-        return new SummaryByCountryIterator($result);
+        return new SummaryByCountryIterator(array_values($result));
+    }
+
+    public function getByCountryAsPlainArray(TransactionIterator $transactionList, UserIterator $userList): array
+    {
+        $iterator = $this->getByCountry($transactionList, $userList);
+        return array_map(function (SummaryByCountryDto $value) {
+            return [
+                'country_id' => $value->getCountry()
+                    ->getId(),
+                'country_name' => $value->getCountry()
+                    ->getName(),
+                'country_code' => $value->getCountry()
+                    ->getCode(),
+                'sum' => $value->getSum(),
+                'count' => $value->getCount(),
+            ];
+        }, iterator_to_array($iterator));
     }
 
     public function getByUserAsArray(TransactionIterator $transactionList, UserIterator $userList): array
     {
         $iterator = $this->getByUser($transactionList, $userList);
-        return array_map(function ($value) {
+        return array_map(function (SummaryByUserDto $value) {
             $user = $value->getUser();
             return [
                 'user' => [
@@ -130,5 +147,48 @@ class SummaryModel
             ]);
         }
         return new SummaryByUserIterator($result);
+    }
+
+    public function getByUserAsPlainArray(TransactionIterator $transactionList, UserIterator $userList): array
+    {
+        $iterator = $this->getByUser($transactionList, $userList);
+        return array_map(function (SummaryByUserDto $value) {
+            $user = $value->getUser();
+            // Flatten the user and other fields into a single flat array
+            $flatArray = [
+                'user_id' => $user->getId(),
+                'user_email' => $user->getEmail(),
+                'user_username' => $user->getUsername(),
+                'user_password' => $user->getPassword(),
+                'user_firstname' => $user->getFirstname(),
+                'user_lastname' => $user->getLastname(),
+                'user_dob' => $user->getDob(),
+                'user_city' => $user->getCity(),
+                'user_zipcode' => $user->getZipcode(),
+                'user_address' => $user->getAddress(),
+                'user_created_at' => $user->getCreatedAt()
+                    ->format('Y-m-d H:i:s'),
+                'user_country_id' => $user->getCountry()
+                    ->getId(),
+                'user_country_name' => $user->getCountry()
+                    ->getName(),
+                'user_country_code' => $user->getCountry()
+                    ->getCode(),
+                'user_status_id' => $user->getStatus()
+                    ->getId(),
+                'user_status_name' => $user->getStatus()
+                    ->getName(),
+                'count' => $value->getCount(),
+                'sum' => $value->getSum(),
+            ];
+            // Flatten each summary entry and append them to the flat array
+            foreach ($value->getSummary() as $index => $summary) {
+                $flatArray["summary_{$index}_date"] = $summary->getDate();
+                $flatArray["summary_{$index}_sum"] = $summary->getSum();
+                $flatArray["summary_{$index}_count"] = $summary->getCount();
+            }
+            return $flatArray;
+        }, iterator_to_array($iterator));
+
     }
 }

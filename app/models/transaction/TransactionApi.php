@@ -27,16 +27,16 @@ class TransactionApi
         $error = curl_error($curl);
         curl_close($curl);
         if ($error) {
-            debug(['data' => 'from cache', 'error' => $error], 'error');
+//            debug(['data' => 'from cache', 'error' => $error], 'error');
             return $this->getCache();
         }
         $data = json_decode($response, true);
         if ($data['status'] !== 'success' || $data['statusCode'] !== 200) {
-            debug(['data' => 'from cache', 'error' => $data], 'error');
+//            debug(['data' => 'from cache', 'error' => $data], 'error');
             return $this->getCache();
         }
         $this->storeCache($data['data']);
-        debug(['data' => 'from api', 'info']);
+//        debug(['data' => 'from api'], 'info');
         return $data['data'];
     }
 

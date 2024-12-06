@@ -15,13 +15,13 @@ function debug(mixed $data, string $class = 'debug'): void
     echo "</pre>";
 }
 
-function debugException(Throwable $e)
+function debugException(Throwable $e): void
 {
     debug([
-        'message'=>$e->getMessage(),
-        'code'=>$e->getCode(),
-        'file'=>$e->getFile(),
-        'line'=>$e->getLine(),
+        'message' => $e->getMessage(),
+        'code' => $e->getCode(),
+        'file' => $e->getFile(),
+        'line' => $e->getLine(),
     ]);
 }
 

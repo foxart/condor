@@ -22,7 +22,7 @@ function debugException(Throwable $e): void
         'code' => $e->getCode(),
         'file' => $e->getFile(),
         'line' => $e->getLine(),
-    ]);
+    ], 'error');
 }
 
 $routerHandler = new RouterHandler(__DIR__ . '/index.tpl');
